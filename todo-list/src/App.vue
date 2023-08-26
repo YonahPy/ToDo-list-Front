@@ -1,47 +1,83 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<template>
+  <div :class="{'template':true, 'dark-theme': isDark, 'light-theme': !isDark}"  id="template">
+    <div class="header">
+      <h1>TODO</h1>
+      <darkMode :isDark="isDark"  @toggleTheme="toggleTheme"/>
+    </div>
+    <div :class="{'todo':true, 'dark-theme': isDark, 'light-theme': !isDark}">
+      <list/>
+
+    </div>
+  </div>
+</template>
+<script>
+  import darkMode from './components/darkMode.vue'
+  import list from './components/list.vue'
+
+export default{
+  components:{
+    darkMode,
+    list
+  },
+  data(){ 
+    return{
+      isDark: false
+  }
+    
+  },
+  methods:{
+    toggleTheme(){
+      this.isDark = !this.isDark
+    }
+  }
+}
+
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
-</template>
-
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.template{
+  background-image: url('../public/images/bg-desktop-light.jpg');
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  
+ 
+}
+.dark-theme{
+  background-color: hsl(235, 21%, 11%);
+  color: white;
+  transition: background-color 0.5s ease 0.1s;
+  
+}
+.light-theme{
+  transition: background-color 0.5s ease 0.1s;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.todo{
+  width: 650px;
+  
+}
+.header{
+  display: flex;
+  width: 650px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+h1{
+  display: flex;
+  align-self: center;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 40px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
