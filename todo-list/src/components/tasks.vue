@@ -2,14 +2,21 @@
     <ul class="tasks">
         
         <li v-for="(task, index) in tasks" :key="index">
-            <button id="check" @click="checkTask" :class="{'checked': isChecked}">
-            <img src="../../public/images/icon-check.svg" alt="check" id="image-checked" >
-            </button>
+           
+                <button id="check" @click="checkTask" :class="{'checked': isChecked}">
+                <img src="../../public/images/icon-check.svg" alt="check" id="image-checked" >
+                </button>
+                
+                {{ task }}
 
-        {{ task }}
+
         <button id="delete" @click="deleteTask">
             <img src="../../public/images/icon-cross.svg" alt="delete">
         </button>
+
+        <div class="line">
+
+        </div>
 
         </li>
 
@@ -45,7 +52,7 @@ export default{
         },
         deleteTask(){
             const tasks = document.querySelector('.tasks');
-            tasks.remove()
+            
         }
     }
     
@@ -58,10 +65,18 @@ export default{
 }
 .tasks{
     display: flex;
+    flex-direction: column;
     width: 70vw;
     background-color: white;
     padding: 15px;
     
+}
+
+
+.line{
+    height: 1px;
+    background-color: rgb(40, 46, 40);
+    margin-block: 15px;
 }
 li{
     list-style: none;
@@ -89,9 +104,9 @@ li{
     border: none;
     font-size: 25px;
     background-color: transparent;
-    margin-left: auto;
     opacity: 0;
     transition: opacity 0.2s ease, visibility 0.3s ease;
+    margin-left: auto;
 }
 .tasks:hover #delete{
     visibility: visible; 

@@ -3,9 +3,9 @@
         <div class="input">
             <input type="text" placeholder="Create a new todo..." id="text" v-model="newTask" @keyup.enter="addTask">
         </div>
-        <ul>
+        <div class="all-tasks">
             <Tasks :tasks="tasks"></Tasks>
-        </ul>
+        </div>
     </main>
 </template>
 
@@ -54,7 +54,8 @@ input:focus{
     outline: none;
     
 }
-ul{
+.all-tasks{
+    
     border-radius: 5px;
     padding: 5px;
     background-color:white ;
