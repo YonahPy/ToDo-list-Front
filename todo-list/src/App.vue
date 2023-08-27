@@ -4,10 +4,9 @@
       <h1>TODO</h1>
       <darkMode :isDark="isDark"  @toggleTheme="toggleTheme"/>
     </div>
-    <div :class="{'todo':true, 'dark-theme': isDark, 'light-theme': !isDark}">
-      <list/>
+      <list :class="{'dark-theme': isDark, 'light-theme': !isDark}"/>
 
-    </div>
+    
   </div>
 </template>
 <script>
@@ -63,13 +62,10 @@ export default{
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
 }
-.todo{
-  width: 650px;
-  
-}
+
 .header{
   display: flex;
-  width: 650px;
+  width: 70vw;
   justify-content: space-between;
   margin-bottom: 30px;
 }
