@@ -38,7 +38,10 @@ export default{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
 }
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap');
+
 .template{
   background-image: url('../public/images/bg-desktop-light.jpg');
   background-repeat: no-repeat;
@@ -72,7 +75,6 @@ export default{
 h1{
   display: flex;
   align-self: center;
-  font-family: 'Josefin Sans', sans-serif;
   font-size: 40px;
 }
 

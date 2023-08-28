@@ -1,26 +1,20 @@
 <template>
-    <ul class="tasks">
-        
-        <li v-for="(task, index) in tasks" :key="index">
-           
-                <button id="check" @click="checkTask" :class="{'checked': isChecked}">
-                <img src="../../public/images/icon-check.svg" alt="check" id="image-checked" >
-                </button>
-                
-                {{ task }}
+    <div class="tasks">
 
-
-        <button id="delete" @click="deleteTask">
-            <img src="../../public/images/icon-cross.svg" alt="delete">
-        </button>
-
-        <div class="line">
-
+        <div class="set">
+            <button @click="checkTask" :class="{'check':true , 'checked': isChecked}">
+            <img src="../../public/images/icon-check.svg" alt="check" id="image-checked">
+            </button>
+            <li :class="{'li-checked':isChecked}">{{ tasks }}</li>
+            <button id="delete" @click="$emit('deleteTasks', index)">
+                <img src="../../public/images/icon-cross.svg" alt="delete">
+            </button> <br>
         </div>
+  
+        <div class="line"></div>
 
-        </li>
-
-    </ul>
+        
+    </div>
 </template>
 
 <script>
@@ -31,29 +25,21 @@ export default{
         }
     },
     props:{
-        tasks:Array
+        tasks:String
     },
     methods:{
         checkTask(){
             this.isChecked = !this.isChecked
-            const li = document.getElementById('item');
             const img = document.getElementById('image-checked')
             if (this.isChecked){
-                li.style.textDecoration = 'line-through'
                 img.style.display = 'inline'
-                li.style.color = 'gray'
             }else{
-                li.style.textDecoration = ''
                 img.style.display = 'none'
-                li.style.color = ''
             }
 
 
         },
-        deleteTask(){
-            const tasks = document.querySelector('.tasks');
-            
-        }
+        
     }
     
 }
@@ -68,35 +54,48 @@ export default{
     flex-direction: column;
     width: 70vw;
     background-color: white;
-    padding: 15px;
     
 }
 
-
+.set{
+    display: flex;
+    padding: 7px 0px 7px 0px;
+}
 .line{
     height: 1px;
-    background-color: rgb(40, 46, 40);
-    margin-block: 15px;
+    background-color:hsl(236, 9%, 61%);
+    margin-block: 10px;
+
 }
 li{
     list-style: none;
     font-size: 21px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.li-checked{
+    text-decoration: line-through;
+    color: rgba(54, 43, 43, 0.541);
 }
 
-#check{
+.check{
     border-radius: 50%;
     border: 1px solid hsl(192, 100%, 67%);
     width: 23px;
     height: 23px;
-    margin-right: 10px;
-    
+    margin-inline: 15px;
+
+}
+.check img{
+    display: none;
 }
 .checked{
     background: linear-gradient(to bottom right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
 }
-#check img{
-    display: none;
+.checked img{
+    display: inline;
 }
+
+
 
 #delete{
     width: 23px;
@@ -107,6 +106,7 @@ li{
     opacity: 0;
     transition: opacity 0.2s ease, visibility 0.3s ease;
     margin-left: auto;
+    margin-right: 15px;
 }
 .tasks:hover #delete{
     visibility: visible; 

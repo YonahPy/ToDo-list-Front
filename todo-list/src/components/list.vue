@@ -3,9 +3,21 @@
         <div class="input">
             <input type="text" placeholder="Create a new todo..." id="text" v-model="newTask" @keyup.enter="addTask">
         </div>
-        <div class="all-tasks">
-            <Tasks :tasks="tasks"></Tasks>
+        <div class="all">
+            <ul class="all-tasks">
+                <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)"></Tasks>
+            </ul>
+            
+            <ul class="filter">
+            <li class="filter-item">5 items left</li>
+            <li class="filter-item" @click="allTasks">All</li>
+            <li class="filter-item">Active</li>
+            <li class="filter-item">Completed</li>
+            <li class="filter-item">Clear Completed</li>
+            </ul>
         </div>
+
+
     </main>
 </template>
 
@@ -20,6 +32,7 @@ export default{
         return{
             newTask: '',
             tasks: [],
+            count: 0
         };
     },
     methods:{
@@ -28,6 +41,16 @@ export default{
                 this.tasks.push(this.newTask);
                 this.newTask = ''
             }
+        },
+        deleteTask(index){
+            this.tasks.splice(index, 1)
+        },
+        allTasks(){
+            this.tasks.forEach(task => {
+                this.count++
+                
+            });
+
         }
     }
 }
@@ -37,6 +60,13 @@ export default{
 <style scoped>
 main{
     background-color:transparent;
+    color: black;
+}
+.all{
+    background: white;
+    margin-top: 10px;
+    border-radius: 15px;
+    padding: 5px;
 }
 .input{
     padding: 5px;
@@ -56,9 +86,17 @@ input:focus{
 }
 .all-tasks{
     
-    border-radius: 5px;
     padding: 5px;
     background-color:white ;
-    margin-top:20px ;
+}
+.filter{
+    display: flex;
+    
+    padding: 15px;
+    justify-content: space-evenly;
+}
+.filter-item{
+    list-style: none;
+    font-size: 13px;
 }
 </style>
