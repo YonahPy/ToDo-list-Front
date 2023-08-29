@@ -21,24 +21,26 @@
 export default{
     data(){
         return{
-            isChecked: false
+            isChecked: false,
         }
     },
     props:{
-        tasks:String
+        tasks:String,
+        index: Number
     },
     methods:{
         checkTask(){
             this.isChecked = !this.isChecked
+            this.$emit('updateChecked', this.index, this.isChecked)
+            
             const img = document.getElementById('image-checked')
             if (this.isChecked){
                 img.style.display = 'inline'
             }else{
                 img.style.display = 'none'
             }
-
-
         },
+
         
     }
     

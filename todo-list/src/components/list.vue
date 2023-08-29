@@ -5,12 +5,12 @@
         </div>
         <div class="all">
             <ul class="all-tasks">
-                <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)"></Tasks>
+                <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)" @updateChecked="updateIsChecked(index,$event)" ></Tasks>
             </ul>
             
             <ul class="filter">
-            <li class="filter-item">5 items left</li>
-            <li class="filter-item" @click="allTasks">All</li>
+            <li class="filter-item"> {{ getRemainingTasksCount() }} items left</li>
+            <li class="filter-item" @click="tarefas">All</li>
             <li class="filter-item">Active</li>
             <li class="filter-item">Completed</li>
             <li class="filter-item">Clear Completed</li>
@@ -32,25 +32,27 @@ export default{
         return{
             newTask: '',
             tasks: [],
-            count: 0
+            isCheckedArray: []
         };
     },
     methods:{
         addTask(){
             if (this.newTask.trim() !== ''){
                 this.tasks.push(this.newTask);
-                this.newTask = ''
+                this.isCheckedArray.push(false);
+                this.newTask = '';
             }
         },
         deleteTask(index){
-            this.tasks.splice(index, 1)
+            this.tasks.splice(index, 1);
+            this.isCheckedArray.splice(index,1);
         },
-        allTasks(){
-            this.tasks.forEach(task => {
-                this.count++
-                
-            });
 
+        updateIsChecked(index, isChecked){
+            this.$set(this.isCheckedArray, index, isChecked);
+        },
+        getRemainingTasksCount(){
+            return this.isCheckedArray.filter(isChecked => !isChecked).length
         }
     }
 }
