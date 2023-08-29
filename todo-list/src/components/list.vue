@@ -5,12 +5,12 @@
         </div>
         <div class="all">
             <ul class="all-tasks">
-                <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)" @updateChecked="updateIsChecked(index,$event)" ></Tasks>
+                <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)"  :index="index" v-model="isCheckedArray[index]"></Tasks>
             </ul>
             
             <ul class="filter">
             <li class="filter-item"> {{ getRemainingTasksCount() }} items left</li>
-            <li class="filter-item" @click="tarefas">All</li>
+            <li class="filter-item">All</li>
             <li class="filter-item">Active</li>
             <li class="filter-item">Completed</li>
             <li class="filter-item">Clear Completed</li>
