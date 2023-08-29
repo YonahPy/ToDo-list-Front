@@ -26,13 +26,11 @@ export default{
     },
     props:{
         tasks:String,
-        index: Number,
-        value: Boolean
+
     },
     methods:{
         checkTask(){
             this.isChecked = !this.isChecked
-            this.$emit('input', !this.value)
             const img = document.getElementById('image-checked')
             if (this.isChecked){
                 img.style.display = 'inline'
