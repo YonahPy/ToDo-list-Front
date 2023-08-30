@@ -5,14 +5,15 @@
         </div>
         <div class="all">
             <ul class="all-tasks">
-                <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)" ></Tasks>
+                <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)" @currentTask="currentTask"  ></Tasks>
+
             </ul>
             
             <ul class="filter">
             <li class="filter-item"> 5 items left</li>
             <li class="filter-item">All</li>
-            <li class="filter-item">Active</li>
-            <li class="filter-item">Completed</li>
+            <li class="filter-item">Active {{ activeTasks }}</li>
+            <li class="filter-item">Completed {{ completedTasks }}</li>
             <li class="filter-item">Clear Completed</li>
             </ul>
         </div>
@@ -32,7 +33,9 @@ export default{
         return{
             newTask: '',
             tasks: [],
-    
+            activeTasks: [],
+            completedTasks: [],
+
         };
     },
     methods:{
@@ -45,6 +48,21 @@ export default{
         deleteTask(index){
             this.tasks.splice(index, 1);
         },
+        currentTask(isChecked, tasks){
+            if (isChecked){
+                this.completedTasks.push(tasks)
+                const indexTask = this.activeTasks.indexOf(tasks)
+                if(indexTask !== -1){
+                    this.activeTasks.splice(indexTask,1)
+                }
+            } else{
+                this.activeTasks.push(tasks);
+                const indexTask = this.completedTasks.indexOf(tasks)
+                if(indexTask !== -1){
+                    this.completedTasks.splice(indexTask, 1)
+                }
+            }
+        }
     }
 }
 

@@ -22,6 +22,7 @@ export default{
     data(){
         return{
             isChecked: false,
+
         }
     },
     props:{
@@ -30,19 +31,18 @@ export default{
     },
     methods:{
         checkTask(){
-            this.isChecked = !this.isChecked
-            const img = document.getElementById('image-checked')
+            this.isChecked = !this.isChecked;
+            const img = document.getElementById('image-checked');
+            this.$emit('currentTask', this.isChecked, this.tasks)
             if (this.isChecked){
                 img.style.display = 'inline'
             }else{
                 img.style.display = 'none'
             }
         },
-
-        
-    }
+  
     
-}
+}}
 </script>
 
 <style scoped>
