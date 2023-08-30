@@ -11,7 +11,7 @@
             
             <ul class="filter">
             <li class="filter-item"> 5 items left</li>
-            <li class="filter-item">All</li>
+            <li class="filter-item">All {{ tasks }}</li>
             <li class="filter-item">Active {{ activeTasks }}</li>
             <li class="filter-item">Completed {{ completedTasks }}</li>
             <li class="filter-item">Clear Completed</li>
@@ -35,6 +35,7 @@ export default{
             tasks: [],
             activeTasks: [],
             completedTasks: [],
+            
 
         };
     },
@@ -48,28 +49,33 @@ export default{
         },
         deleteTask(index){
             this.tasks.splice(index, 1);
-            this.activeTasks.splice(index, 1)
-            
+            this.activeTasks.splice(index, 1);
+            this.removeCompletedTasksNotInTasks();
         },
-        currentTask(isChecked, tasks){
+        currentTask(isChecked, taskName){
             if (isChecked){
-                this.completedTasks.push(tasks)
-                const indexTask = this.activeTasks.indexOf(tasks)
-                if(indexTask !== -1){
-                    this.activeTasks.splice(indexTask,1)
+                this.completedTasks.push(taskName)
+                const indexinActiveTasks = this.activeTasks.indexOf(taskName)
+                if(indexinActiveTasks !== -1){
+                    this.activeTasks.splice(indexinActiveTasks,1)
                 }
             } else{
-                this.activeTasks.push(tasks);
-                const indexTask = this.completedTasks.indexOf(tasks)
-                if(indexTask !== -1){
-                    this.completedTasks.splice(indexTask, 1)
+                this.activeTasks.push(taskName);
+                const indexInCompletedTasks = this.completedTasks.indexOf(taskName)
+                if(indexInCompletedTasks !== -1){
+                    this.completedTasks.splice(indexInCompletedTasks, 1)
                 }
-
-
-                
             }
-
-        }
+        },
+        removeCompletedTasksNotInTasks() {
+            if (this.completedTasks.length > 0) {
+            this.completedTasks.forEach((tasksComp, index) => {
+                if (!this.tasks.includes(tasksComp)) {
+                this.completedTasks.splice(index, 1);
+                }
+            });
+            }
+  },
     }
 }
 
