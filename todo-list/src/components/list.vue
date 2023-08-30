@@ -42,11 +42,14 @@ export default{
         addTask(){
             if (this.newTask.trim() !== ''){
                 this.tasks.push(this.newTask);
+                this.activeTasks.push(this.newTask)
                 this.newTask = '';
             }
         },
         deleteTask(index){
             this.tasks.splice(index, 1);
+            this.activeTasks.splice(index, 1)
+            
         },
         currentTask(isChecked, tasks){
             if (isChecked){
@@ -61,7 +64,11 @@ export default{
                 if(indexTask !== -1){
                     this.completedTasks.splice(indexTask, 1)
                 }
+
+
+                
             }
+
         }
     }
 }
