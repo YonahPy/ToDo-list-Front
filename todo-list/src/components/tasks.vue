@@ -54,8 +54,20 @@ export default{
     display: flex;
     flex-direction: column;
     width: 70vw;
-    background-color: white;
     
+    
+}
+
+.dark-theme{
+  background-color: hsl(235, 21%, 11%);
+  color: white;
+  transition: background-color 0.5s ease 0.1s;
+  
+}
+.light-theme{
+  transition: background-color 0.5s ease 0.1s;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .set{
