@@ -8,12 +8,15 @@
                 <Tasks v-for="(task, index) in tasks" :key="index"  :tasks="task" @deleteTasks="deleteTask(index)" @currentTask="currentTask"  ></Tasks>
 
             </ul>
+            <listCompleted :listCompleted="completedTasks"  v-if="showCompletedTasks">
+
+            </listCompleted>
             
             <ul class="filter">
             <li class="filter-item"> 5 items left</li>
             <li class="filter-item">All {{ tasks }}</li>
             <li class="filter-item">Active {{ activeTasks }}</li>
-            <li class="filter-item">Completed {{ completedTasks }}</li>
+            <li class="filter-item" @click="showFilterCompletedTasks">Completed</li>
             <li class="filter-item">Clear Completed</li>
             </ul>
         </div>
@@ -24,10 +27,12 @@
 
 <script>
 import Tasks from './tasks.vue'
+import listCompleted from './completedTasks.vue'
 
 export default{
     components:{
-        Tasks
+        Tasks,
+        listCompleted
     },
     data(){
         return{
@@ -35,6 +40,7 @@ export default{
             tasks: [],
             activeTasks: [],
             completedTasks: [],
+            showCompletedTasks: false
             
 
         };
@@ -75,7 +81,10 @@ export default{
                 }
             });
             }
-  },
+        },
+        showFilterCompletedTasks(){
+            this.showCompletedTasks = !this.showCompletedTasks
+        }
     }
 }
 
